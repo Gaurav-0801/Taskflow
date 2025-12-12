@@ -47,7 +47,7 @@ app.use("/api/tasks", tasksRoutes)
 app.use("/api/profile", profileRoutes)
 
 // Health check
-app.get("/health", (req, res) => {
+app.get("/health", (req: express.Request, res: express.Response): void => {
   res.json({ status: "ok" })
 })
 

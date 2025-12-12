@@ -1,5 +1,6 @@
 import bcrypt from "bcryptjs"
 import { SignJWT, jwtVerify } from "jose"
+import { TextEncoder } from "util"
 
 const SECRET_KEY = new TextEncoder().encode(
   process.env.JWT_SECRET || "your-secret-key-change-in-production"

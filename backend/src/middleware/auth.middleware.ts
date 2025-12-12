@@ -5,6 +5,9 @@ import { getDb } from "../utils/db"
 export interface AuthRequest extends Request {
   userId?: number
   user?: any
+  body: any
+  params: any
+  cookies: any
 }
 
 export async function authenticate(
