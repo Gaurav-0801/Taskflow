@@ -8,6 +8,7 @@ import { CreateTaskDialog } from "@/components/create-task-dialog"
 import { apiClient } from "@/lib/api-client"
 import type { Task, User } from "@/types"
 import { Skeleton } from "@/components/ui/skeleton"
+import { motion } from "framer-motion"
 
 export default function DashboardPage() {
   const router = useRouter()
@@ -71,17 +72,22 @@ export default function DashboardPage() {
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">
       <DashboardHeader user={user} />
       <main className="container mx-auto px-4 py-8 max-w-6xl">
-        <div className="flex items-center justify-between mb-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8"
+        >
           <div>
-            <h1 className="text-4xl font-bold tracking-tight bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
+            <h1 className="text-4xl md:text-5xl font-bold tracking-tight bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
               My Tasks
             </h1>
-            <p className="text-muted-foreground mt-2">
+            <p className="text-muted-foreground mt-2 text-base md:text-lg">
               Manage your tasks efficiently
             </p>
           </div>
           <CreateTaskDialog onTaskCreated={fetchTasks} />
-        </div>
+        </motion.div>
         <TaskList tasks={tasks} onTaskUpdate={fetchTasks} />
       </main>
     </div>

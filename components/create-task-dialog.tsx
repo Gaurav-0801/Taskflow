@@ -83,16 +83,18 @@ export function CreateTaskDialog({ onTaskCreated }: CreateTaskDialogProps) {
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
         >
-          <Button size="lg" className="gap-2 shadow-lg">
+          <Button size="lg" className="gap-2 shadow-lg hover:shadow-xl transition-shadow">
             <Plus className="h-5 w-5" />
             New Task
           </Button>
         </motion.div>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[500px]">
+      <DialogContent className="sm:max-w-[500px] backdrop-blur-md bg-card/95 border-2 shadow-2xl">
         <DialogHeader>
-          <DialogTitle className="text-2xl">Create New Task</DialogTitle>
-          <DialogDescription>
+          <DialogTitle className="text-2xl bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
+            Create New Task
+          </DialogTitle>
+          <DialogDescription className="text-base">
             Add a new task to your list. Fill in the details below.
           </DialogDescription>
         </DialogHeader>
@@ -204,10 +206,11 @@ export function CreateTaskDialog({ onTaskCreated }: CreateTaskDialogProps) {
                 variant="outline"
                 onClick={() => setOpen(false)}
                 disabled={isLoading}
+                className="shadow-sm"
               >
                 Cancel
               </Button>
-              <Button type="submit" disabled={isLoading}>
+              <Button type="submit" disabled={isLoading} className="shadow-lg hover:shadow-xl transition-shadow">
                 {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />

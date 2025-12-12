@@ -13,11 +13,12 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import type { User } from "@/types"
-import { LogOut, CheckSquare, User as UserIcon, Settings } from "lucide-react"
+import { LogOut, User as UserIcon, Settings } from "lucide-react"
 import { apiClient } from "@/lib/api-client"
 import { toast } from "sonner"
 import { ProfileDialog } from "./profile-dialog"
 import { motion } from "framer-motion"
+import { Logo } from "@/components/logo"
 
 export function DashboardHeader({ user }: { user: User }) {
   const router = useRouter()
@@ -49,23 +50,26 @@ export function DashboardHeader({ user }: { user: User }) {
 
   return (
     <>
-      <header className="border-b bg-card/95 backdrop-blur-sm sticky top-0 z-50 shadow-sm">
+      <header className="border-b bg-card/95 backdrop-blur-md sticky top-0 z-50 shadow-lg border-border/50">
         <div className="container mx-auto px-4 py-4 max-w-6xl">
           <div className="flex items-center justify-between">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              className="flex items-center gap-3"
+              className="flex items-center gap-4"
             >
-              <div className="h-10 w-10 rounded-lg bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center">
-                <CheckSquare className="h-5 w-5 text-primary" />
-              </div>
-              <div>
+              <Logo size="md" animated={false} />
+              <div className="hidden sm:block">
                 <h2 className="font-bold text-lg bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
                   TaskFlow
                 </h2>
                 <p className="text-sm text-muted-foreground">
                   Welcome, {user.name}
+                </p>
+              </div>
+              <div className="sm:hidden">
+                <p className="text-sm text-muted-foreground">
+                  {user.name.split(" ")[0]}
                 </p>
               </div>
             </motion.div>

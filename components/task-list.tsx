@@ -57,12 +57,12 @@ export function TaskList({ tasks, onTaskUpdate }: TaskListProps) {
           placeholder="Search tasks by title or description..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="pl-10 pr-10 h-11"
+          className="pl-10 pr-10 h-11 bg-card/50 backdrop-blur-sm border-2 focus:border-primary/50 transition-colors shadow-sm"
         />
         {searchQuery && (
           <button
             onClick={() => setSearchQuery("")}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors p-1 rounded-full hover:bg-muted"
           >
             <X className="h-4 w-4" />
           </button>
@@ -75,7 +75,7 @@ export function TaskList({ tasks, onTaskUpdate }: TaskListProps) {
         onValueChange={(value) => setFilter(value as any)}
         className="w-full"
       >
-        <TabsList className="grid w-full grid-cols-4">
+        <TabsList className="grid w-full grid-cols-4 bg-card/50 backdrop-blur-sm border-2 shadow-sm">
           <TabsTrigger value="all" className="relative">
             All
             <span className="ml-2 px-2 py-0.5 text-xs rounded-full bg-muted">
@@ -113,10 +113,10 @@ export function TaskList({ tasks, onTaskUpdate }: TaskListProps) {
             exit={{ opacity: 0, y: -20 }}
             className="text-center py-16"
           >
-            <div className="flex flex-col items-center gap-4">
-              <div className="h-20 w-20 rounded-full bg-muted flex items-center justify-center">
-                <Search className="h-10 w-10 text-muted-foreground" />
-              </div>
+              <div className="flex flex-col items-center gap-4">
+                <div className="h-20 w-20 rounded-full bg-gradient-to-br from-muted to-muted/50 flex items-center justify-center shadow-lg">
+                  <Search className="h-10 w-10 text-muted-foreground" />
+                </div>
               <div>
                 <p className="text-lg font-medium text-foreground">
                   {searchQuery || filter !== "all"

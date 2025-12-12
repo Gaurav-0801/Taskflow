@@ -34,6 +34,7 @@ import { apiClient } from "@/lib/api-client"
 import { taskSchema, type TaskInput } from "@/lib/validations"
 import type { Task } from "@/types"
 import { toast } from "sonner"
+import { motion } from "framer-motion"
 
 interface EditTaskDialogProps {
   task: Task
@@ -98,10 +99,12 @@ export function EditTaskDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[500px]">
+      <DialogContent className="sm:max-w-[500px] backdrop-blur-md bg-card/95 border-2 shadow-2xl">
         <DialogHeader>
-          <DialogTitle className="text-2xl">Edit Task</DialogTitle>
-          <DialogDescription>
+          <DialogTitle className="text-2xl bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
+            Edit Task
+          </DialogTitle>
+          <DialogDescription className="text-base">
             Update the task details below.
           </DialogDescription>
         </DialogHeader>
@@ -213,10 +216,11 @@ export function EditTaskDialog({
                 variant="outline"
                 onClick={() => onOpenChange(false)}
                 disabled={isLoading}
+                className="shadow-sm"
               >
                 Cancel
               </Button>
-              <Button type="submit" disabled={isLoading}>
+              <Button type="submit" disabled={isLoading} className="shadow-lg hover:shadow-xl transition-shadow">
                 {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />

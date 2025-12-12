@@ -112,10 +112,10 @@ export function TaskCard({ task, onTaskUpdate }: TaskCardProps) {
         transition={{ duration: 0.2 }}
         className="h-full"
       >
-        <Card className="h-full hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/20 group relative overflow-hidden">
+        <Card className="h-full hover:shadow-2xl hover:shadow-primary/5 transition-all duration-300 border-2 hover:border-primary/30 group relative overflow-hidden bg-card/95 backdrop-blur-sm">
           {/* Status indicator bar */}
           <div
-            className={`absolute left-0 top-0 bottom-0 w-1 ${
+            className={`absolute left-0 top-0 bottom-0 w-1.5 transition-all ${
               task.status === "pending"
                 ? "bg-yellow-500"
                 : task.status === "in-progress"
@@ -129,11 +129,11 @@ export function TaskCard({ task, onTaskUpdate }: TaskCardProps) {
               <CardTitle className="text-lg font-semibold line-clamp-2 pr-2">
                 {task.title}
               </CardTitle>
-              <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+              <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-all duration-200">
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="h-8 w-8"
+                  className="h-8 w-8 hover:bg-primary/10 hover:text-primary transition-colors"
                   onClick={() => setIsEditOpen(true)}
                 >
                   <Pencil className="h-4 w-4" />
@@ -141,7 +141,7 @@ export function TaskCard({ task, onTaskUpdate }: TaskCardProps) {
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="h-8 w-8 text-destructive hover:text-destructive"
+                  className="h-8 w-8 text-destructive hover:text-destructive hover:bg-destructive/10 transition-colors"
                   onClick={() => setShowDeleteDialog(true)}
                   disabled={isDeleting}
                 >
@@ -159,14 +159,14 @@ export function TaskCard({ task, onTaskUpdate }: TaskCardProps) {
             <div className="flex flex-wrap gap-2">
               <Badge
                 variant="outline"
-                className={`${statusConfig[task.status].color} flex items-center gap-1.5 px-2.5 py-1`}
+                className={`${statusConfig[task.status].color} flex items-center gap-1.5 px-2.5 py-1 font-medium shadow-sm`}
               >
                 <StatusIcon className="h-3 w-3" />
                 {statusConfig[task.status].label}
               </Badge>
               <Badge
                 variant="outline"
-                className={`${priorityConfig[task.priority].color} flex items-center gap-1.5 px-2.5 py-1`}
+                className={`${priorityConfig[task.priority].color} flex items-center gap-1.5 px-2.5 py-1 font-medium shadow-sm`}
               >
                 <PriorityIcon className="h-3 w-3" />
                 {priorityConfig[task.priority].label}

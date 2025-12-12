@@ -84,15 +84,17 @@ export function ProfileDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[500px]">
+      <DialogContent className="sm:max-w-[500px] backdrop-blur-md bg-card/95 border-2 shadow-2xl">
         <DialogHeader>
-          <DialogTitle className="text-2xl">Edit Profile</DialogTitle>
-          <DialogDescription>
+          <DialogTitle className="text-2xl bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
+            Edit Profile
+          </DialogTitle>
+          <DialogDescription className="text-base">
             Update your profile information below.
           </DialogDescription>
         </DialogHeader>
         <div className="flex flex-col items-center py-4">
-          <Avatar className="h-20 w-20 mb-4">
+          <Avatar className="h-20 w-20 mb-4 shadow-lg ring-2 ring-primary/20">
             <AvatarFallback className="bg-gradient-to-br from-primary/20 to-primary/10 text-primary text-2xl font-semibold">
               {getInitials(user.name)}
             </AvatarFallback>
@@ -134,10 +136,11 @@ export function ProfileDialog({
                 variant="outline"
                 onClick={() => onOpenChange(false)}
                 disabled={isLoading}
+                className="shadow-sm"
               >
                 Cancel
               </Button>
-              <Button type="submit" disabled={isLoading}>
+              <Button type="submit" disabled={isLoading} className="shadow-lg hover:shadow-xl transition-shadow">
                 {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />

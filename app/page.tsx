@@ -3,7 +3,6 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import {
-  CheckSquare,
   ArrowRight,
   Shield,
   Zap,
@@ -11,6 +10,7 @@ import {
   Sparkles,
 } from "lucide-react"
 import { motion } from "framer-motion"
+import { Logo } from "@/components/logo"
 
 export default function HomePage() {
   return (
@@ -29,14 +29,7 @@ export default function HomePage() {
           transition={{ duration: 0.5 }}
           className="flex items-center justify-between"
         >
-          <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center shadow-lg">
-              <CheckSquare className="h-6 w-6 text-primary" />
-            </div>
-            <span className="text-2xl font-bold bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
-              TaskFlow
-            </span>
-          </div>
+          <Logo size="md" showText animated />
           <div className="flex gap-3">
             <Button variant="ghost" asChild>
               <Link href="/login">Sign In</Link>
@@ -55,13 +48,13 @@ export default function HomePage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-center space-y-6 mb-20"
+          className="text-center space-y-8 mb-20"
         >
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-6xl md:text-7xl font-bold tracking-tight text-balance"
+            className="text-6xl md:text-7xl font-bold tracking-tight text-balance leading-tight"
           >
             Manage Your Tasks
             <br />
@@ -73,7 +66,7 @@ export default function HomePage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-xl text-muted-foreground max-w-2xl mx-auto text-balance"
+            className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto text-balance leading-relaxed"
           >
             A modern, full-stack task management application built with Next.js,
             TypeScript, and PostgreSQL.
@@ -134,16 +127,16 @@ export default function HomePage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: feature.delay }}
               whileHover={{ y: -8, transition: { duration: 0.2 } }}
-              className="bg-card/80 backdrop-blur-sm p-8 rounded-xl border-2 hover:border-primary/20 transition-all duration-300 shadow-lg hover:shadow-2xl"
+              className="bg-card/90 backdrop-blur-md p-8 rounded-2xl border-2 hover:border-primary/30 transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-primary/10"
             >
               <motion.div
                 whileHover={{ scale: 1.1, rotate: 5 }}
-                className="h-14 w-14 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center mb-4 shadow-lg"
+                className="h-14 w-14 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center mb-4 shadow-lg hover:shadow-xl transition-shadow"
               >
                 <feature.icon className="h-7 w-7 text-primary" />
               </motion.div>
-              <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-              <p className="text-muted-foreground leading-relaxed">
+              <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
+              <p className="text-muted-foreground leading-relaxed text-sm md:text-base">
                 {feature.description}
               </p>
             </motion.div>

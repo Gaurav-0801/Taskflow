@@ -1,14 +1,27 @@
 {
   "info": {
     "name": "TaskFlow API",
-    "description": "API collection for TaskFlow task management application",
+    "description": "API collection for TaskFlow task management application\n\nBase URLs:\n- Production: https://taskflow-zxih.onrender.com\n- Local Development: http://localhost:3001\n\nUpdate the baseUrl variable to switch between environments.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [
     {
       "key": "baseUrl",
       "value": "http://localhost:3001",
-      "type": "string"
+      "type": "string",
+      "description": "Base URL for the API. Use 'http://localhost:3001' for local development or 'https://taskflow-zxih.onrender.com' for production."
+    },
+    {
+      "key": "baseUrlProduction",
+      "value": "https://taskflow-zxih.onrender.com",
+      "type": "string",
+      "description": "Production API base URL"
+    },
+    {
+      "key": "baseUrlLocal",
+      "value": "http://localhost:3001",
+      "type": "string",
+      "description": "Local development API base URL"
     }
   ],
   "item": [

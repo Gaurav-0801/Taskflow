@@ -2,6 +2,12 @@
 
 ## Base URL
 
+### Production
+```
+https://taskflow-zxih.onrender.com
+```
+
+### Local Development
 ```
 http://localhost:3001
 ```

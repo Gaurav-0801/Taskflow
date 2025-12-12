@@ -12,7 +12,6 @@ export const metadata: Metadata = {
   title: "TaskFlow - Modern Task Management",
   description:
     "A full-stack task management application with authentication built with Next.js, TypeScript, and PostgreSQL",
-  generator: "v0.app",
   icons: {
     icon: [
       {
