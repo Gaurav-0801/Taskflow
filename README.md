@@ -225,34 +225,9 @@ See [SCALABILITY.md](./SCALABILITY.md) for detailed scalability strategies and p
 
 Import the `postman_collection.json` file into Postman to test all API endpoints.
 
-## Deployment
 
-### Production Deployment Links
-- **Frontend**: [https://taskflow-self-omega.vercel.app/](https://taskflow-self-omega.vercel.app/)
-- **Backend API**: [https://taskflow-zxih.onrender.com/](https://taskflow-zxih.onrender.com/)
-
-### Frontend (Vercel)
-1. Push your code to GitHub
-2. Import the repository in Vercel
-3. Add environment variables:
-   - `NEXT_PUBLIC_API_URL` - Your backend API URL (e.g., `https://taskflow-zxih.onrender.com`)
-   - `JWT_SECRET` - For middleware token verification
-4. Deploy
-
-### Backend (Render)
-1. Build the TypeScript code: `cd backend && npm run build`
-2. Deploy to Render (or your preferred hosting: Railway, AWS, etc.)
-3. Set environment variables:
-   - `PORT` - Server port (default: 3001)
-   - `DATABASE_URL` - PostgreSQL connection string
-   - `JWT_SECRET` - Secret key for JWT tokens
-   - `CORS_ORIGIN` - Frontend URL (e.g., `https://taskflow-self-omega.vercel.app`)
-   - `NODE_ENV` - Set to `production`
-4. Ensure CORS_ORIGIN points to your frontend URL
 
 ## License
 
 Built as an internship assignment demonstrating full-stack development skills.
-#   T a s k f l o w 
- 
- 
+#
