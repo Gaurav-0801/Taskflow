@@ -9,7 +9,7 @@ export class AuthService {
     // Check if user already exists
     const existingUsers = await sql`
       SELECT id FROM users WHERE email = ${email}
-    `
+    ` as Array<{ id: number }>
 
     if (existingUsers.length > 0) {
       throw new Error("User already exists")
@@ -21,7 +21,7 @@ export class AuthService {
       INSERT INTO users (email, password_hash, name)
       VALUES (${email}, ${passwordHash}, ${name})
       RETURNING id, email, name, created_at, updated_at
-    `
+    ` as User[]
 
     const user = users[0]
     const token = await createToken(user.id)
@@ -34,7 +34,7 @@ export class AuthService {
 
     const users = await sql`
       SELECT id, password_hash FROM users WHERE email = ${email}
-    `
+    ` as Array<{ id: number; password_hash: string }>
 
     if (users.length === 0) {
       throw new Error("Invalid credentials")
@@ -52,7 +52,7 @@ export class AuthService {
       SELECT id, email, name, created_at, updated_at
       FROM users
       WHERE id = ${user.id}
-    `
+    ` as User[]
 
     const token = await createToken(user.id)
 
@@ -65,7 +65,7 @@ export class AuthService {
       SELECT id, email, name, created_at, updated_at
       FROM users
       WHERE id = ${userId}
-    `
+    ` as User[]
 
     return users[0] || null
   }

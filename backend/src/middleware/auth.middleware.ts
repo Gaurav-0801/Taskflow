@@ -33,7 +33,7 @@ export async function authenticate(
       SELECT id, email, name, created_at, updated_at
       FROM users
       WHERE id = ${payload.userId}
-    `
+    ` as Array<{ id: number; email: string; name: string; created_at: string; updated_at: string }>
 
     if (users.length === 0) {
       return res.status(401).json({ error: "User not found" })

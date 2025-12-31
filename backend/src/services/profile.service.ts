@@ -8,7 +8,7 @@ export class ProfileService {
       SELECT id, email, name, created_at, updated_at
       FROM users
       WHERE id = ${userId}
-    `
+    ` as User[]
     return users[0] || null
   }
 
@@ -22,7 +22,7 @@ export class ProfileService {
     if (input.email) {
       const existing = await sql`
         SELECT id FROM users WHERE email = ${input.email} AND id != ${userId}
-      `
+      ` as Array<{ id: number }>
       if (existing.length > 0) {
         throw new Error("Email already in use")
       }
@@ -35,7 +35,7 @@ export class ProfileService {
         SET name = ${input.name}, email = ${input.email}, updated_at = CURRENT_TIMESTAMP
         WHERE id = ${userId}
         RETURNING id, email, name, created_at, updated_at
-      `
+      ` as User[]
       return users[0] || null
     } else if (input.name !== undefined) {
       const users = await sql`
@@ -43,7 +43,7 @@ export class ProfileService {
         SET name = ${input.name}, updated_at = CURRENT_TIMESTAMP
         WHERE id = ${userId}
         RETURNING id, email, name, created_at, updated_at
-      `
+      ` as User[]
       return users[0] || null
     } else if (input.email !== undefined) {
       const users = await sql`
@@ -51,7 +51,7 @@ export class ProfileService {
         SET email = ${input.email}, updated_at = CURRENT_TIMESTAMP
         WHERE id = ${userId}
         RETURNING id, email, name, created_at, updated_at
-      `
+      ` as User[]
       return users[0] || null
     }
 

@@ -8,7 +8,7 @@ export class TasksService {
       SELECT * FROM tasks
       WHERE user_id = ${userId}
       ORDER BY created_at DESC
-    `
+    ` as Task[]
     return tasks
   }
 
@@ -25,7 +25,7 @@ export class TasksService {
         ${input.due_date || null}
       )
       RETURNING *
-    `
+    ` as Task[]
     return tasks[0]
   }
 
@@ -38,7 +38,7 @@ export class TasksService {
     // Verify task belongs to user
     const existing = await sql`
       SELECT id FROM tasks WHERE id = ${input.id} AND user_id = ${userId}
-    `
+    ` as Array<{ id: number }>
 
     if (existing.length === 0) {
       throw new Error("Task not found")
@@ -55,7 +55,7 @@ export class TasksService {
         updated_at = CURRENT_TIMESTAMP
       WHERE id = ${input.id} AND user_id = ${userId}
       RETURNING *
-    `
+    ` as Task[]
 
     return tasks[0] || null
   }
@@ -66,7 +66,7 @@ export class TasksService {
     // Verify task belongs to user
     const existing = await sql`
       SELECT id FROM tasks WHERE id = ${taskId} AND user_id = ${userId}
-    `
+    ` as Array<{ id: number }>
 
     if (existing.length === 0) {
       throw new Error("Task not found")
