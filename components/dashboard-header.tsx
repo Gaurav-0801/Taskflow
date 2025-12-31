@@ -29,6 +29,7 @@ export function DashboardHeader({ user }: { user: User }) {
     setIsSigningOut(true)
     try {
       await apiClient.post("/api/auth/signout")
+      apiClient.clearAuth() // Clear token from localStorage
       toast.success("Signed out successfully")
       router.push("/login")
       router.refresh()

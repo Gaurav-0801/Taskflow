@@ -39,10 +39,8 @@ export default function LoginPage() {
     try {
       await apiClient.post("/api/auth/signin", data)
       toast.success("Signed in successfully!")
-      // Use window.location for a full page reload to ensure cookies are set
-      setTimeout(() => {
-        window.location.href = "/dashboard"
-      }, 500)
+      // Redirect immediately - token is now stored in localStorage
+      router.push("/dashboard")
     } catch (error: any) {
       toast.error(error.message || "Failed to sign in")
       setIsLoading(false)

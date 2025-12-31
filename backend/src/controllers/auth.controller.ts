@@ -10,6 +10,7 @@ export class AuthController {
       const { email, password, name } = req.body
       const { user, token } = await authService.signUp(email, password, name)
 
+      // Set cookie for same-origin requests
       res.cookie("auth_token", token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
@@ -18,7 +19,8 @@ export class AuthController {
         path: "/",
       })
 
-      res.status(201).json({ user })
+      // Also return token in response for cross-origin setups
+      res.status(201).json({ user, token })
     } catch (error: any) {
       if (error.message === "User already exists") {
         return res.status(409).json({ error: error.message })
@@ -32,6 +34,7 @@ export class AuthController {
       const { email, password } = req.body
       const { user, token } = await authService.signIn(email, password)
 
+      // Set cookie for same-origin requests
       res.cookie("auth_token", token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
@@ -40,7 +43,9 @@ export class AuthController {
         path: "/",
       })
 
-      res.json({ user })
+      // Also return token in response for cross-origin setups
+      // Frontend can store this in localStorage and send as Authorization header
+      res.json({ user, token })
     } catch (error: any) {
       if (error.message === "Invalid credentials") {
         return res.status(401).json({ error: error.message })

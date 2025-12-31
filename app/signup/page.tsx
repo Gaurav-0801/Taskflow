@@ -62,11 +62,10 @@ export default function SignUpPage() {
     try {
       await apiClient.post("/api/auth/signup", data)
       toast.success("Account created successfully!")
+      // Token is automatically stored by apiClient
       router.push("/dashboard")
-      router.refresh()
     } catch (error: any) {
       toast.error(error.message || "Failed to create account")
-    } finally {
       setIsLoading(false)
     }
   }

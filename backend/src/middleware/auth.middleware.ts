@@ -16,7 +16,16 @@ export async function authenticate(
   next: NextFunction
 ) {
   try {
-    const token = req.cookies?.auth_token
+    // Try to get token from cookie first, then from Authorization header
+    let token = req.cookies?.auth_token
+    
+    // If no cookie, check Authorization header (for cross-origin requests)
+    if (!token) {
+      const authHeader = req.headers.authorization
+      if (authHeader && authHeader.startsWith("Bearer ")) {
+        token = authHeader.substring(7)
+      }
+    }
 
     if (!token) {
       return res.status(401).json({ error: "Unauthorized" })

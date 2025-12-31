@@ -11,6 +11,21 @@ class ApiClient {
     this.baseUrl = baseUrl
   }
 
+  private getAuthToken(): string | null {
+    if (typeof window === "undefined") return null
+    return localStorage.getItem("auth_token")
+  }
+
+  private setAuthToken(token: string): void {
+    if (typeof window === "undefined") return
+    localStorage.setItem("auth_token", token)
+  }
+
+  private clearAuthToken(): void {
+    if (typeof window === "undefined") return
+    localStorage.removeItem("auth_token")
+  }
+
   private async request<T>(
     endpoint: string,
     options: RequestOptions = {}
@@ -18,13 +33,22 @@ class ApiClient {
     const { body, ...fetchOptions } = options
 
     const url = `${this.baseUrl}${endpoint}`
+    const token = this.getAuthToken()
+    
+    const headers: HeadersInit = {
+      "Content-Type": "application/json",
+      ...fetchOptions.headers,
+    }
+
+    // Add Authorization header if token exists (for cross-origin requests)
+    if (token) {
+      headers["Authorization"] = `Bearer ${token}`
+    }
+
     const config: RequestInit = {
       ...fetchOptions,
-      headers: {
-        "Content-Type": "application/json",
-        ...fetchOptions.headers,
-      },
-      credentials: "include", // Include cookies
+      headers,
+      credentials: "include", // Include cookies (fallback for same-origin)
     }
 
     if (body) {
@@ -41,13 +65,25 @@ class ApiClient {
         throw new Error(error.error || `HTTP error! status: ${response.status}`)
       }
 
-      return await response.json()
+      const data = await response.json()
+      
+      // If this is a sign-in/sign-up response and contains a token, store it
+      if (data.token && typeof data.token === "string") {
+        this.setAuthToken(data.token)
+      }
+      
+      return data
     } catch (error: any) {
       if (error.message) {
         throw error
       }
       throw new Error("Network error. Please try again.")
     }
+  }
+
+  // Method to clear auth token (for sign out)
+  clearAuth(): void {
+    this.clearAuthToken()
   }
 
   async get<T>(endpoint: string, options?: RequestOptions): Promise<T> {
