@@ -3,11 +3,16 @@ services:
     name: taskflow-backend
     env: node
     rootDir: backend
-    buildCommand: rm -rf node_modules .npm && npm cache clean --force && npm install && npm run build
+    buildCommand: npm install && npm run build
     startCommand: npm start
     envVars:
       - key: NODE_ENV
         value: production
       - key: PORT
         value: 3001
+      - key: CORS_ORIGIN
+        value: https://taskflow-self-omega.vercel.app
+      # Note: The following environment variables must be set in Render Dashboard:
+      # - DATABASE_URL: Your Neon PostgreSQL connection string
+      # - JWT_SECRET: Your secret key for JWT tokens (use a strong random string)
 

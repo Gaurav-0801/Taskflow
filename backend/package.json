@@ -4,8 +4,7 @@
   "description": "TaskFlow Express Backend API",
   "main": "dist/server.js",
   "scripts": {
-    "preinstall": "node -e \"try { require('fs').rmSync('node_modules', {recursive: true, force: true}) } catch(e) {}\"",
-    "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
+    "dev": "npx ts-node-dev --respawn --transpile-only src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
     "setup-db": "node scripts/setup-db.js"
