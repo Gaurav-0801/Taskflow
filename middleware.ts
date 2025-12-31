@@ -18,24 +18,11 @@ async function verifyToken(token: string): Promise<{ userId: number } | null> {
 export async function middleware(request: NextRequest) {
   const token = request.cookies.get("auth_token")?.value
 
-  // Protected routes
-  if (request.nextUrl.pathname.startsWith("/dashboard")) {
-    if (!token) {
-      return NextResponse.redirect(new URL("/login", request.url))
-    }
+  // Note: For cross-origin setups (Vercel frontend + Render backend),
+  // cookies set by the backend won't be accessible here.
+  // The dashboard page handles authentication via API calls instead.
 
-    // Verify token (basic check - full validation happens in API)
-    try {
-      const payload = await verifyToken(token)
-      if (!payload) {
-        return NextResponse.redirect(new URL("/login", request.url))
-      }
-    } catch {
-      return NextResponse.redirect(new URL("/login", request.url))
-    }
-  }
-
-  // Redirect authenticated users away from auth pages
+  // Redirect authenticated users away from auth pages (if token exists locally)
   if (token && (request.nextUrl.pathname === "/login" || request.nextUrl.pathname === "/signup")) {
     try {
       const payload = await verifyToken(token)
@@ -47,6 +34,8 @@ export async function middleware(request: NextRequest) {
     }
   }
 
+  // For protected routes, let the page component handle authentication
+  // This allows cross-origin cookies to work properly
   return NextResponse.next()
 }
 
